@@ -38,8 +38,6 @@ export function loginPage(ctx) {
 
         const data = await login(username, password);
 
-        console.log(data);
-
         ctx.page.redirect('/');
     }
 }

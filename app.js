@@ -5,10 +5,14 @@ import { logout } from './src/data.js'
 import { homePage } from './views/home.js';
 import { adminPage } from './views/admin.js';
 import { loginPage } from './views/login.js';
+import { editPage } from './views/edit.js';
+import { createPage } from './views/create.js';
 
 page('/', setupRender, homePage);
 page('/admin', setupRender, adminPage);
 page('/login', setupRender, loginPage);
+page('/edit/:id', setupRender, editPage);
+page('/create', setupRender, createPage);
 
 const main = document.getElementById('site-content');
 document.getElementById('logoutLink').addEventListener('click', logoutUser);
@@ -57,5 +61,5 @@ async function logoutUser(ev) {
 
     await logout();
 
-    page.redirect('/home');
+    page.redirect('/');
 }

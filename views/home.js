@@ -1,8 +1,9 @@
 import { html } from '../node_modules/lit-html/lit-html.js';
+import { until } from '../node_modules/lit-html/directives/until.js';
 
 import { getAllCountries } from '../src/data.js'
 
-const homeTemplate = (onsubmit, data, newID) => html`
+const homeTemplate = (onsubmit, data) => html`
 <section class="container">
   <form @submit=${onsubmit} action="action_page.php">
     <div class="row">
@@ -46,8 +47,6 @@ const homeTemplate = (onsubmit, data, newID) => html`
   </form>
 </div>
 
-${newID ? html`<aside><p>${newID}</p></aside>` : ''}
-
 `;
 
 const optionTemplate = (element) => html`
@@ -55,6 +54,7 @@ const optionTemplate = (element) => html`
 `;
 
 export async function homePage(ctx) {
+
   const data = await getAllCountries();
 
   ctx.render(homeTemplate(onsubmit, data));
@@ -65,8 +65,8 @@ export async function homePage(ctx) {
 
     const form = new FormData(ev.target);
 
-    const firstName = form.get('firstname');
-    const lastName = form.get('lastname');
+    const firstName = form.get('firstname').trim();
+    const lastName = form.get('lastname').trim();
     const country = form.get('country');
     let birthday = form.get('birthday');
 
@@ -74,9 +74,26 @@ export async function homePage(ctx) {
       return alert("Моля попълнете всички полета!");
     }
 
-    const id = firstName.charAt(0) + lastName.charAt(0) + country + birthday;
+    const birthdayArray = birthday.split('.');
 
-    ctx.render(homeTemplate(onsubmit, data, id));
+
+    birthday = birthdayArray[2].substring(2) + birthdayArray[1] + birthdayArray[0];
+
+    const id = birthday + firstName.charAt(0) + lastName.charAt(0) + country;
+    
+    document.querySelector('#result').innerHTML = id;
+
+    const modal = document.getElementById('idModal');
+
+    modal.style.display = 'block';
+
+    document.querySelector('.close').addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
 
   }
 }
+
+const spin = () => html `
+<div class="loader"></div>
+`;

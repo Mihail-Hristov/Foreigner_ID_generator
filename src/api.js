@@ -1,6 +1,5 @@
 export const settings = {
-    userHost: '',
-    dataHost: '',
+    host: '',
 }
 
 
@@ -54,36 +53,20 @@ export async function login(username, password) {
         password
     }
 
-    const result = await post(settings.userHost + '/login', obj);
+    const result = await post(settings.host + '/login', obj);
 
     sessionStorage.setItem('authToken', result.sessionToken);
     sessionStorage.setItem('userId', result.objectId);
-    //sessionStorage.setItem('username', result.username);
 
     return result;
 }
 
-export async function register(username, password) {
-    const obj = {
-        username,
-        password,
-    }
-
-    const result = await post(settings.host + '/users/register', obj);
-
-    sessionStorage.setItem('authToken', result.accessToken);
-    sessionStorage.setItem('userId', result._id);
-    sessionStorage.setItem('username', result.username);
-
-    return result;
-}
 
 export async function logout() {
-    const result = await get(settings.userHost + '/users/me');
+    const result = await get(settings.host + '/users/me');
 
-    sessionStorage.setItem('authToken', result.sessionToken);
-    sessionStorage.setItem('userId', result.objectId);
-    //sessionStorage.setItem('username', result.username);
+    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('userId');
 
     return result;
 }
