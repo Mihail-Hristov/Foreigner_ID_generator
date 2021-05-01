@@ -8,23 +8,23 @@ const homeTemplate = (onsubmit, data) => html`
   <form @submit=${onsubmit} action="action_page.php">
     <div class="row">
       <div class="col-25">
-        <label for="fname">Име</label>
+        <label for="fname">First name</label>
       </div>
       <div class="col-75">
-        <input type="text" id="fname" name="firstname" placeholder="Собствено име">
+        <input type="text" id="fname" name="firstname" placeholder="First name">
       </div>
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="lname">Фамилия</label>
+        <label for="lname">Last name</label>
       </div>
       <div class="col-75">
-        <input type="text" id="lname" name="lastname" placeholder="Фамилно име">
+        <input type="text" id="lname" name="lastname" placeholder="Last name">
       </div>
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="Birthday">Дата на раждане</label>
+        <label for="Birthday">Date of birth</label>
       </div>
       <div class="col-75">
         <input type="date" id="birthday" name="birthday">
@@ -32,7 +32,7 @@ const homeTemplate = (onsubmit, data) => html`
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="country">Държава</label>
+        <label for="country">Country of birth</label>
       </div>
       <div class="col-75">
         <select id="country" name="country">
@@ -42,7 +42,7 @@ const homeTemplate = (onsubmit, data) => html`
     </div>
    
     <div class="row">
-      <input type="submit" value="Генерирай">
+      <input type="submit" value="Generate">
     </section>
   </form>
 </div>
@@ -71,7 +71,16 @@ export async function homePage(ctx) {
     let birthday = form.get('birthday');
 
     if (!firstName || !lastName || !birthday) {
-      return alert("Моля попълнете всички полета!");
+      return alert("Please fill all fields!");
+    }
+
+    if(birthday.includes('/')) {
+      birthday.replaceAll('/', '.')
+    }else if(birthday.includes('-')) {
+      birthday = birthday.replaceAll('-', '.')
+    }else {
+      alert('Please input the correct date format!');
+      return;
     }
 
     const birthdayArray = birthday.split('.');
@@ -81,6 +90,7 @@ export async function homePage(ctx) {
 
     const id = birthday + firstName.charAt(0) + lastName.charAt(0) + country;
     
+    document.querySelector('#personName').innerHTML = `${firstName} ${lastName}`;
     document.querySelector('#result').innerHTML = id;
 
     const modal = document.getElementById('idModal');

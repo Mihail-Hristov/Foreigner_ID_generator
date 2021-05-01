@@ -6,15 +6,15 @@ const loginTemplate = (onSubmit) => html `
 <section id="login">
     <div class="login">
         <form @submit=${onSubmit} id="login-form" action="#" method="post">
-            <h1>Вход</h1>
+            <h1>Login form</h1>
             <hr>
 
-            <p>Имейл</p>
-            <input placeholder="example@domain.bg" name="username" type="text">
+            <p>Email</p>
+            <input placeholder="example@domain.bg" name="email" type="text">
 
-            <p>Парола</p>
-            <input type="password" placeholder="Въведете парола" name="password">
-            <input type="submit" class="registerbtn" value="Вход">
+            <p>Password</p>
+            <input type="password" placeholder="Password..." name="password">
+            <input type="submit" class="registerbtn" value="Login">
         </form>
     </div>
 </section>
@@ -29,11 +29,11 @@ export function loginPage(ctx) {
 
         const loginForm = new FormData(ev.target);
 
-        const username = loginForm.get('username');
+        const username = loginForm.get('email');
         const password = loginForm.get('password');
 
         if(!username || !password) {
-            return alert('Моля попълнете всички полета!');
+            return alert("Please fill all fields!");
         }
 
         const data = await login(username, password);

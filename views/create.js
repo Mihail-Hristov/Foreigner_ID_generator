@@ -2,12 +2,12 @@ import { html } from '../node_modules/lit-html/lit-html.js';
 
 import { createCountry } from '../src/data.js'
 
-const createTemplate = (onSubmit) => html `
+const createTemplate = (onSubmit, cancel) => html `
 <section class="container">
   <form @submit=${onSubmit} action="action_page.php">
     <div class="row">
       <div class="col-25">
-        <label for="code">Код</label>
+        <label for="code">Country code</label>
       </div>
       <div class="col-75">
         <input type="text" id="code" name="code">
@@ -15,7 +15,7 @@ const createTemplate = (onSubmit) => html `
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="country">Държава</label>
+        <label for="country">Country name</label>
       </div>
       <div class="col-75">
         <input type="text" id="country" name="country">
@@ -23,7 +23,8 @@ const createTemplate = (onSubmit) => html `
     </div>
    
     <div class="row">
-      <input type="submit" value="Запази">
+      <input type="submit" value="Create">
+      <button @click=${cancel} class="cancelBtn">Cancel</buuton>
     </section>
   </form>
 </div>
@@ -31,7 +32,7 @@ const createTemplate = (onSubmit) => html `
 `;
 
 export function createPage(ctx) {
-    ctx.render(createTemplate(onSubmit))
+    ctx.render(createTemplate(onSubmit, cancel))
 
     async function onSubmit(ev) {
       ev.preventDefault();
@@ -42,7 +43,7 @@ export function createPage(ctx) {
       const countryName = createForm.get('country');
 
       if(countryId.length < 2 || countryId.length > 2) {
-        return alert('Кода на държавата трябва да е от два символа!');
+        return alert('Code of the country must be exactly 2 characters!');
       }
 
       countryId = countryId.toUpperCase();
@@ -55,5 +56,11 @@ export function createPage(ctx) {
       await createCountry(obj);
 
       ctx.page.redirect('/admin');
+    }
+
+    function cancel(ev) {
+      ev.preventDefault()
+
+      ctx.page.redirect('/admin')
     }
 }

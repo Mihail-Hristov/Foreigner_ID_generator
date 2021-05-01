@@ -9,7 +9,7 @@ async function reguest(url, option) {
 
         if (!response.ok) {
             const error = await response.json();
-            return alert(error.message);
+            return alert(error.error);
         }
 
         try {
@@ -19,7 +19,7 @@ async function reguest(url, option) {
             return response;
         }
     } catch (err) {
-        alert(err.message);
+        alert(err.error);
         //throw new Error(err.message);
     }
 }

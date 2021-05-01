@@ -15,9 +15,9 @@ const adminTemplate = (data, addNewItem , onsubmit, ctx) => html`
 <table id="table">
         <thead>
         <tr>
-        <th>Код на държава</th>
-        <th>Име на държава</th>
-        <th>Действие</th>
+        <th>Country code</th>
+        <th>Country name</th>
+        <th>Action</th>
     </tr>
         </thead>
        
