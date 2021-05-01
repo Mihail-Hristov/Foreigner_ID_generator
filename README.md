@@ -12,7 +12,7 @@ The information about the person and ID does not store anywhere, they are just d
 * Generate ID with data from html form
 * Login and logout for predefined users - you can test application with this credentials:
 
-email - test@mihailhristov.eu
+email - test@mihailhristov.eu<br/>
 password - 1q2w3e4r
 
 * Admin page (only for login users) for view, create and edit the countries information
