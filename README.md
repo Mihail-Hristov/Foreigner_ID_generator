@@ -16,6 +16,7 @@ email - test@mihailhristov.eu<br/>
 password - 1q2w3e4r
 
 * Admin page (only for login users) for view, create and edit the countries information
+* Search - it is not implemented yet
 
 ## Technologies
 
