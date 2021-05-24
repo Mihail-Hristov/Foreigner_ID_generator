@@ -86,7 +86,7 @@ export async function homePage(ctx) {
     const birthdayArray = birthday.split('.');
 
 
-    birthday = birthdayArray[2].substring(2) + birthdayArray[1] + birthdayArray[0];
+    birthday = birthdayArray[0].substring(2) + birthdayArray[1] + birthdayArray[2];
 
     const id = birthday + firstName.charAt(0) + lastName.charAt(0) + country;
     

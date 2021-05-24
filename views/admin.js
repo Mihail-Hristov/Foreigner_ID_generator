@@ -3,7 +3,7 @@ import { deleteCountry } from '../src/data.js'
 
 import { getAllCountries } from '../src/data.js';
 
-const adminTemplate = (data, addNewItem , onsubmit, ctx) => html`
+const adminTemplate = (data, addNewItem , onsubmit, ctx, search) => html`
 
 <div class="headerAdmin">
     <button @click=${addNewItem} class="create" href="/create">New</button>
@@ -55,7 +55,6 @@ const adminTemplate = (data, addNewItem , onsubmit, ctx) => html`
 export async function adminPage(ctx) {
     const data = await getAllCountries();
 
-    console.log(data);
     ctx.render(adminTemplate(data, addNewItem, onsubmit, ctx));
     ctx.setUserNav('admin')
 
@@ -65,7 +64,9 @@ export async function adminPage(ctx) {
         const searchForm = new FormData(ev.target);
         const search = searchForm.get('search').trim();
 
-        ctx.render(adminTemplate(data, onsubmit, search));
+        console.log(search);
+
+        ctx.render(adminTemplate(data, addNewItem, onsubmit, ctx, search));
     }
 
     function addNewItem() {
